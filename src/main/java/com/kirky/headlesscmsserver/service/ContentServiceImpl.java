@@ -27,17 +27,24 @@ public class ContentServiceImpl implements ContentService {
     @Override
     @Transactional
     public ContentDTO addContent(ContentDTO contentDTO) throws Exception {
-        Content content = contentRepository.findContentByName(contentDTO.getName());
+        String contentName = convertContentTitleToName(contentDTO.getTitle());
+        Content content = contentRepository.findContentByName(contentName);
         if (content != null) throw new Exception("Content already exists: " + contentDTO.getName());
+        contentDTO.setName(contentName);
         contentRepository.save(convertToEntity(contentDTO));
         return contentDTO;
     }
 
     @Override
-    public void deleteContentByName(String name) {
-        Content content = contentRepository.findContentByName(name);
-        if (content == null) throw new PropertyNotFoundException("Content not found: " + name);
-        contentRepository.deleteContentByName(name);
+    @Transactional
+    public void deleteContentById(Integer id) {
+        Content content = contentRepository.findContentById(id);
+        if (content == null) throw new PropertyNotFoundException("Content not found: " + id);
+        contentRepository.deleteContentById(id);
+    }
+
+    private static String convertContentTitleToName(String title) {
+        return title.toLowerCase().replaceAll("\\s+", "-");
     }
 
     private ContentDTO convertToDTO(Content entity) {

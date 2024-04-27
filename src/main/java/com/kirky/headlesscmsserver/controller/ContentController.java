@@ -25,9 +25,9 @@ public class ContentController {
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{name}")
-    public ResponseEntity<String> deleteContent(@PathVariable("name") String name) {
-        contentService.deleteContentByName(name);
+    @DeleteMapping("/{id:.+}")
+    public ResponseEntity<String> deleteContent(@PathVariable("id") Integer id) {
+        contentService.deleteContentById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

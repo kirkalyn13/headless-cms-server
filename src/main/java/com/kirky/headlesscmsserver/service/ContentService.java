@@ -7,5 +7,5 @@ import java.util.List;
 public interface ContentService {
     ContentDTO getContentByName(String name);
     ContentDTO addContent(ContentDTO contentDTO) throws Exception;
-    void deleteContentByName(String name);
+    void deleteContentById(Integer id);
 }
