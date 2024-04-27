@@ -12,6 +12,9 @@ public class Block {
     @Column(name = "id")
     private Integer id;
 
+    @Column(name = "content_id")
+    private Integer contentId;
+
     @Column(name = "heading")
     private String heading;
 

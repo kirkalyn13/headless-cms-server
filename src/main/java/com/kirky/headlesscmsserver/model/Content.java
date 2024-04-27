@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,7 +28,7 @@ public class Content {
     @Column(name = "author")
     private String author;
 
-    @JsonBackReference
-    @OneToMany( fetch = FetchType.LAZY, mappedBy = "id", cascade = CascadeType.ALL)
-    private List<Block> blocks;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "business_id")
+    List<Block> blocks = new ArrayList<>();
 }
