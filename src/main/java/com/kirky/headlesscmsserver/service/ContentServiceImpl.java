@@ -66,7 +66,8 @@ public class ContentServiceImpl implements ContentService {
             content.setDescription(contentDTO.getDescription());
         }
         if (!contentDTO.getBlocks().isEmpty()) {
-            content.setBlocks(contentDTO.getBlocks());
+            content.getBlocks().clear();
+            content.getBlocks().addAll(contentDTO.getBlocks());
         }
 
         contentRepository.save(content);

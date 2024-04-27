@@ -29,6 +29,6 @@ public class Content {
     private String author;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "business_id")
+    @JoinColumn(name = "content_id")
     List<Block> blocks = new ArrayList<>();
 }
