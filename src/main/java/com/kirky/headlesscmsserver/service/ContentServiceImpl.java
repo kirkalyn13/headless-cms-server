@@ -21,6 +21,7 @@ public class ContentServiceImpl implements ContentService {
     public ContentDTO getContentByName(String name) {
         Content content = contentRepository.findContentByName(name);
         if (content == null) throw new PropertyNotFoundException("Content not found: " + name);
+
         return convertToDTO(content);
     }
 
@@ -29,9 +30,12 @@ public class ContentServiceImpl implements ContentService {
     public ContentDTO addContent(ContentDTO contentDTO) throws Exception {
         String contentName = convertContentTitleToName(contentDTO.getTitle());
         Content content = contentRepository.findContentByName(contentName);
+
         if (content != null) throw new Exception("Content already exists: " + contentDTO.getName());
         contentDTO.setName(contentName);
         contentRepository.save(convertToEntity(contentDTO));
+        contentDTO.setName(contentName);
+
         return contentDTO;
     }
 
@@ -41,6 +45,35 @@ public class ContentServiceImpl implements ContentService {
         Content content = contentRepository.findContentById(id);
         if (content == null) throw new PropertyNotFoundException("Content not found: " + id);
         contentRepository.deleteContentById(id);
+    }
+
+    @Override
+    @Transactional
+    public ContentDTO editContent(Integer id, ContentDTO contentDTO) {
+        Content content = contentRepository.findContentById(id);
+
+        if (content == null) throw new PropertyNotFoundException("Content not found: " + id);
+        if (contentDTO.getTitle() != null) {
+            content.setTitle(contentDTO.getTitle());
+            String contentName = convertContentTitleToName(contentDTO.getTitle());
+            content.setName(contentName);
+            contentDTO.setName(contentName);
+        }
+        if (contentDTO.getAuthor() != null) {
+            content.setAuthor(contentDTO.getAuthor());
+        }
+        if (contentDTO.getDescription() != null) {
+            content.setDescription(contentDTO.getDescription());
+        }
+        if (!contentDTO.getBlocks().isEmpty()) {
+            content.getBlocks().clear();
+            content.getBlocks().addAll(contentDTO.getBlocks());
+        }
+
+        contentRepository.save(content);
+        contentDTO.setId(content.getId());
+
+        return contentDTO;
     }
 
     private static String convertContentTitleToName(String title) {

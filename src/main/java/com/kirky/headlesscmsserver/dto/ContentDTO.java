@@ -13,6 +13,7 @@ public class ContentDTO implements Serializable {
     private Integer id;
     private String title;
     private String name;
-    private String subtitle;
+    private String author;
+    private String description;
     private List<Block> blocks;
 }
