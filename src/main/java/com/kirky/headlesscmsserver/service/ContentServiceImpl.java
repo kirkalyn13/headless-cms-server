@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ContentServiceImpl implements ContentService {
     @Autowired
@@ -74,6 +77,15 @@ public class ContentServiceImpl implements ContentService {
         contentDTO.setId(content.getId());
 
         return contentDTO;
+    }
+
+    @Override
+    public List<ContentDTO> getContentList() {
+        return contentRepository
+                .findAll()
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     private static String convertContentTitleToName(String title) {

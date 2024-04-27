@@ -9,4 +9,5 @@ public interface ContentService {
     ContentDTO addContent(ContentDTO contentDTO) throws Exception;
     void deleteContentById(Integer id);
     ContentDTO editContent(Integer id, ContentDTO contentDTO);
+    List<ContentDTO> getContentList();
 }
