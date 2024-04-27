@@ -33,6 +33,13 @@ public class ContentServiceImpl implements ContentService {
         return contentDTO;
     }
 
+    @Override
+    public void deleteContentByName(String name) {
+        Content content = contentRepository.findContentByName(name);
+        if (content == null) throw new PropertyNotFoundException("Content not found: " + name);
+        contentRepository.deleteContentByName(name);
+    }
+
     private ContentDTO convertToDTO(Content entity) {
         return modelMapper.map(entity, ContentDTO.class);
     }

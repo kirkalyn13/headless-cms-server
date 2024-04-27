@@ -24,4 +24,10 @@ public class ContentController {
         ContentDTO result = contentService.addContent(contentDTO);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/{name}")
+    public ResponseEntity<String> deleteContent(@PathVariable("name") String name) {
+        contentService.deleteContentByName(name);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

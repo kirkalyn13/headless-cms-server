@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ContentRepository extends JpaRepository<Content, Integer> {
     Content findContentByName(String name);
+    void deleteContentByName(String name);
 }
