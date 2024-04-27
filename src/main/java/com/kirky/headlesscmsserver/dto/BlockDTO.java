@@ -9,6 +9,7 @@ import java.io.Serializable;
 @Setter
 public class BlockDTO implements Serializable {
     private Integer id;
+    private Integer blockNumber;
     private String heading;
     private String subHeading;
     private String description;
