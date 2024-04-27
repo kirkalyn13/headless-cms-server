@@ -25,6 +25,14 @@ public class ContentController {
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
+    @PutMapping("/{id:.+}")
+    public ResponseEntity<ContentDTO> editContent(
+            @PathVariable("id") Integer id,
+            @RequestBody ContentDTO contentDTO) {
+        ContentDTO result = contentService.editContent(id, contentDTO);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
+    }
+
     @DeleteMapping("/{id:.+}")
     public ResponseEntity<String> deleteContent(@PathVariable("id") Integer id) {
         contentService.deleteContentById(id);

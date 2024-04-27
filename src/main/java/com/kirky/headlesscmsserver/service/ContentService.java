@@ -8,4 +8,5 @@ public interface ContentService {
     ContentDTO getContentByName(String name);
     ContentDTO addContent(ContentDTO contentDTO) throws Exception;
     void deleteContentById(Integer id);
+    ContentDTO editContent(Integer id, ContentDTO contentDTO);
 }
